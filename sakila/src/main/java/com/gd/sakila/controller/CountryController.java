@@ -19,6 +19,9 @@ public class CountryController {
 	@GetMapping("/countryList")
 	public String countryList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) { // setAttribute 역할 : Model, 문자열 형변환 -> spring이 대신 해줌
 		Map<String, Object> map = countryService.getCountryList(currentPage, rowPerPage);
+		// 디버깅
+		System.out.println("map : " + map.toString());
+		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("currentPage",currentPage);

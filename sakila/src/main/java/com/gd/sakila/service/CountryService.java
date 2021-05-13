@@ -12,7 +12,7 @@ import com.gd.sakila.mapper.CountryMapper;
 import com.gd.sakila.vo.Country;
 import com.gd.sakila.vo.PageParam;
 
-@Service
+@Service // 붙어있어야 객체가 만들어짐
 @Transactional // spring에 트랜잭션기능이 있다. 어떤 메서드를 실행하다가 에러가뜨면 그 메서드가 있는 서비스 롤백
 public class CountryService {
 	
@@ -39,17 +39,26 @@ public class CountryService {
 		pageParam.setRowPerPage(rowPerPage);
 		
 		// dao 호출
-		List<Country> list = countryMapper.selectCountryList(pageParam);
+		List<Country> boardlist = countryMapper.selectCountryList(pageParam);
 		int total = countryMapper.selectCountryTotal();
 		
 		// dao의 반환값을 가공
-		int lastPage = total/rowPerPage;
+/*		int lastPage = total/rowPerPage;
 		if(total % rowPerPage != 0) {
 			lastPage += 1;
-		}
+		} */
+		int lastPage = (int)(Math.ceil((double)total/rowPerPage));
+		
+		// 디버깅
+		System.out.println("beginRow : " + beginRow);
+		System.out.println("lastPage : " + lastPage);
+		System.out.println("total : " + total);
+		System.out.println("boardlist : " + boardlist.toString());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+		// 디버깅
+		System.out.println("map : " + map.toString());
+		map.put("boardlist", boardlist);
 		map.put("lastPage", lastPage);
 		
 		return map;
