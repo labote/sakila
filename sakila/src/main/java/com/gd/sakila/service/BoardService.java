@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.BoardMapper;
+import com.gd.sakila.mapper.CommentMapper;
 import com.gd.sakila.vo.Board;
+import com.gd.sakila.vo.Comment;
 import com.gd.sakila.vo.PageParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +21,50 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional // spring에 트랜잭션기능이 있다. 어떤 메서드를 실행하다가 에러가뜨면 그 메서드가 있는 서비스 롤백
 public class BoardService {
 	
-	@Autowired
-	private BoardMapper boardMapper;
+	@Autowired private BoardMapper boardMapper;
+	@Autowired private CommentMapper commentMapper;
 	
 	// boardOne 제거 메서드
 	public int removeBoard(Board board) {
+		
+		// 디버깅
 		log.debug("removeBoard 안의 board 확인 : " + board.toString());
 		
 		return boardMapper.deleteBoard(board);
 	}
 	
-	// boardOne 출력 메서드
+	// update 메서드
+	public int modifyBoard(Board board) {
+		
+		// 디버깅
+		log.debug("modifyBoard 안의 board 확인 : " + board.toString());
+		
+		return boardMapper.updateBoard(board);
+	}
+	
+	// boardOne 출력 메서드 + comment 출력 메서드
 	public Map<String,Object> getBoardOne(int boardId) {
-		return boardMapper.selectBoardOne(boardId);
+		
+		// 디버깅
+		log.debug("boardId 확인 : " + boardId);
+		
+		// boardOne
+		Map<String, Object> boardOneMap = boardMapper.selectBoardOne(boardId);
+		
+		// 디버깅
+		log.debug(boardOneMap.toString());
+		
+		// comment
+		List<Comment> commentList = commentMapper.selectCommentListByBoard(boardId);
+		
+		// 디버깅
+		log.debug(commentList.toString());
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardOneMap", boardOneMap);
+		map.put("commentList", commentList);
+		
+		return map;
 	}
 	
 	// board 추가 메서드

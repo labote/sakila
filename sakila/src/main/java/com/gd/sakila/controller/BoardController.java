@@ -36,6 +36,32 @@ public class BoardController {
 		return "redirect:/getBoardList";
 	}
 	
+	// 수정
+	@GetMapping("/modifyBoard")
+	public String modifyBoard(Model model, @RequestParam(value="boardId", required = true) int boardId) {
+		
+		// 디버깅
+		log.debug("param : " + boardId);
+		
+		//select
+		Map<String, Object> modifyOne = boardService.getBoardOne(boardId);
+		model.addAttribute("modifyOne", modifyOne);
+		
+		return "modifyBoard";
+	}
+	
+	@PostMapping("/modifyBoard")
+	public String modifyBoard(Board board) {
+		
+		// update
+		int row = boardService.modifyBoard(board);
+		
+		// 디버깅
+		log.debug("modify 실행 여부 : " + row);
+		
+		return "redirect:/getBoardOne?boardId=" + board.getBoardId();
+	}
+	
 	// 리턴타입 뷰이름 문자열 C -> V
 	// 삭제
 	@GetMapping("/removeBoard")
@@ -62,10 +88,12 @@ public class BoardController {
 	@GetMapping("/getBoardOne")
 	public String getBoardOne(Model model, @RequestParam(value="boardId", required = true) int boardId) { // View가 있으면 모델이 존재
 		Map<String, Object> boardOne = boardService.getBoardOne(boardId);
-		// 디버깅
-		System.out.println("boardOne : " + boardOne.toString());
 		
-		model.addAttribute("boardOne", boardOne);
+		// 디버깅
+		log.debug("boardOne : " + boardOne.toString());
+		
+		model.addAttribute("boardOneMap", boardOne.get("boardOneMap"));
+		model.addAttribute("commentList", boardOne.get("commentList"));
 		return "getBoardOne";
 	}
 	
