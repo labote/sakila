@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j // 디버깅
 @Controller // 컴포넌트로 객체가 자동으로 만들어진다. 서블릿처럼 행동하는 클래스를 상속받음
 public class BoardController {
 	
@@ -20,6 +23,7 @@ public class BoardController {
 	
 	// 동일한 이름의 맵핑이 두개가 생기면 부팅이 안됨 -> 하지만 Get과 Post는 가능
 	// 메서드 이름이 같지만 오버로딩이라 상관이 없다
+	// 추가
 	@GetMapping("/addBoard")
 	public String addBoard() {
 		return "addBoard";
@@ -32,6 +36,27 @@ public class BoardController {
 		return "redirect:/getBoardList";
 	}
 	
+	// 리턴타입 뷰이름 문자열 C -> V
+	// 삭제
+	@GetMapping("/removeBoard")
+	public String removeBoard(Model model, @RequestParam(value="boardId", required = true) int boardId) {
+		// 디버깅
+		log.debug("param : " + boardId);
+		
+		model.addAttribute("boardId", boardId); // 중복이지만, 받을때 공통된 이름으로 받을 수 있어서 model로 해결
+		return "removeBoard";
+	}
+	
+	// C -> M -> redirect(C)
+	@PostMapping("/removeBoard")
+	public String removeBoard(Board board) {
+		int row = boardService.removeBoard(board);
+		log.debug("" + row);
+		if(row == 0) {
+			return "redirect:/getBoardOne?boardId=" + board.getBoardId();
+		}
+		return "redirect:/getBoardList";
+	}
 	
 	// BoardOne Mapping
 	@GetMapping("/getBoardOne")
