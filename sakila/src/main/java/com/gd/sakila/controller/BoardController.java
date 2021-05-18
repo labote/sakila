@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.BoardService;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // 디버깅
 @Controller // 컴포넌트로 객체가 자동으로 만들어진다. 서블릿처럼 행동하는 클래스를 상속받음
+@RequestMapping("/admin")
 public class BoardController {
 	
 	@Autowired // nullpointException이 발생 -> Autowired 에노테이션을 통해 객체를 주입 시켜준다
@@ -33,13 +35,13 @@ public class BoardController {
 	public String addBoard(Board board) { // inputType이 필드명과 같아야한다. 커맨드객체라고 부른다.
 		boardService.addBoard(board);
 		// return "getBoardOne"; // 포워딩 된다.
-		return "redirect:/getBoardList";
+		return "redirect:/admin/getBoardList";
 	}
 	
 	// 수정
 	@GetMapping("/modifyBoard")
 	public String modifyBoard(Model model, @RequestParam(value="boardId", required = true) int boardId) {
-		
+
 		// 디버깅
 		log.debug("param : " + boardId);
 		
@@ -59,7 +61,7 @@ public class BoardController {
 		// 디버깅
 		log.debug("modify 실행 여부 : " + row);
 		
-		return "redirect:/getBoardOne?boardId=" + board.getBoardId();
+		return "redirect:/admin/getBoardOne?boardId=" + board.getBoardId();
 	}
 	
 	// 리턴타입 뷰이름 문자열 C -> V
@@ -79,9 +81,9 @@ public class BoardController {
 		int row = boardService.removeBoard(board);
 		log.debug("" + row);
 		if(row == 0) {
-			return "redirect:/getBoardOne?boardId=" + board.getBoardId();
+			return "redirect:/admin/getBoardOne?boardId=" + board.getBoardId();
 		}
-		return "redirect:/getBoardList";
+		return "redirect:/admin/getBoardList";
 	}
 	
 	// BoardOne Mapping

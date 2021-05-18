@@ -9,6 +9,6 @@
 </head>
 <body>
 	<h1>home</h1>
-	<a href="${pageContext.request.contextPath}/getBoardList">BoardList</a>
+	<a href="${pageContext.request.contextPath}/admin/getBoardList">BoardList</a>
 </body>
 </html>

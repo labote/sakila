@@ -30,7 +30,21 @@ public class BoardService {
 		// 디버깅
 		log.debug("removeBoard 안의 board 확인 : " + board.toString());
 		
-		return boardMapper.deleteBoard(board);
+		// 1) board 삭제 // 외래키가 안잡혀있거나 delete No Action
+		int boardRow = boardMapper.deleteBoard(board);
+		
+		// 비밀번호가 틀려서 오류가 생기면 강제로 에러발생 -> 트랜잭션 처리
+		if(boardRow == 0) {
+			return 0;
+		}
+		
+		log.debug("deleteBoard : " + boardRow);
+		
+		// 2) comment 삭제
+		int commentRow = commentMapper.deleteCommentByBoardId(board.getBoardId());
+		log.debug("deleteComment : " + commentRow);
+		
+		return boardRow;
 	}
 	
 	// update 메서드
