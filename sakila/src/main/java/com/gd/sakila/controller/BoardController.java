@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
+import com.gd.sakila.vo.BoardForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,8 +33,10 @@ public class BoardController {
 	}
 	
 	@PostMapping("/addBoard")
-	public String addBoard(Board board) { // inputType이 필드명과 같아야한다. 커맨드객체라고 부른다.
-		boardService.addBoard(board);
+	public String addBoard(BoardForm boardForm) { // inputType이 필드명과 같아야한다. 커맨드객체라고 부른다.
+		
+		log.debug("boardForm : " + boardForm.toString());
+		boardService.addBoard(boardForm);
 		// return "getBoardOne"; // 포워딩 된다.
 		return "redirect:/admin/getBoardList";
 	}

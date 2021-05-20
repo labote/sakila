@@ -22,18 +22,20 @@ public class LoginFilter implements Filter {
 
 		// 요청전
 		log.debug("LoginFilter 요청전");
-		HttpSession session = null;
+/*		HttpSession session = null;
 		
 		if(request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest)request).getSession();
 		}
 		
 		// 개발 중에는 주석처리
-		/*
-		 * if(session.getAttribute("loginStaff") == null) { if(response instanceof
-		 * HttpServletResponse) { ((HttpServletResponse)response).sendRedirect("/"); }
-		 * return; }
-		 */
+
+		if (session.getAttribute("loginStaff") == null) {
+			if (response instanceof HttpServletResponse) {
+				((HttpServletResponse) response).sendRedirect("/");
+			}
+			return;
+		}*/
 		
 		chain.doFilter(request, response);
 		

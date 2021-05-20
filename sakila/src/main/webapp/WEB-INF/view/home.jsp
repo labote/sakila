@@ -6,9 +6,38 @@
 <head>
 <meta charset="UTF-8">
 <title>home</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		console.log("document ready!");
+		$('#btn').click(function(){
+			console.log("btn click!");
+			
+			// 폼 유효성 검사
+			$('#loginForm').submit();
+		});
+	});
+</script>
 </head>
 <body>
 	<h1>home</h1>
-	<a href="${pageContext.request.contextPath}/admin/getBoardList">BoardList</a>
+	<!-- 로그인 Off -->
+	<c:if test="${loginStaff == null}">
+		<form id="loginForm" action="${pageContext.request.contextPath}/login" method="post">
+			<div>Email : </div>
+			<div><input type="text" id="email" name="email"></div>
+			<div>Password : </div>
+			<div><input type="password" id="password" name="password"></div>
+			<div>
+				<button id="btn" type="button">login</button>
+			</div>
+		</form>
+	</c:if>
+	
+	<!-- 로그인 On -->
+	<c:if test="${loginStaff != null}">
+		<a href="${pageContext.request.contextPath}/admin/getBoardList">BoardList</a>
+		<a href="${pageContext.request.contextPath}/admin/logout">logout</a>
+	</c:if>
 </body>
 </html>
