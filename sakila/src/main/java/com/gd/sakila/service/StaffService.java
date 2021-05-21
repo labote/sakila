@@ -38,6 +38,10 @@ public class StaffService {
 	
 	// 한 직원 정보 출력 메서드
 	public Staff getStaffOne(int staffId) {
+		
+		// 디버깅
+		log.debug("getStaffOne의 파라미터(staffId) : " + staffId);
+		
 		return staffMapper.selectStaffOne(staffId);
 	}
 }
