@@ -22,36 +22,32 @@
     <h1>getStaffOne</h1>
     <table class="table table-striped">
         <tr>
-        	<td>staffId</td>
-            <td>${staffOne.staffId}</td>
+        	<td>ID</td>
+            <td>${staffOne.ID}</td>
         </tr>
         <tr>
         	<td>name</td>
             <td>${staffOne.name}</td>
         </tr>
         <tr>
-        	<td>picture</td>
-            <td>${staffOne.picture}</td>
+        	<td>zipCode</td>
+            <td>${staffOne.zipCode}</td>
         </tr>
         <tr>
-        	<td>email</td>
-            <td>${staffOne.email}</td>
+        	<td>phone</td>
+            <td>${staffOne.phone}</td>
         </tr>
         <tr>
-        	<td>storeId</td>
-            <td>${staffOne.storeId}</td>
+        	<td>city</td>
+            <td>${staffOne.city}</td>
         </tr>
         <tr>
-        	<td>active</td>
-            <td>${staffOne.active}</td>
+        	<td>country</td>
+            <td>${staffOne.country}</td>
         </tr>
         <tr>
-        	<td>username</td>
-            <td>${staffOne.username}</td>
-        </tr>
-        <tr>
-        	<td>lastUpdate</td>
-            <td>${staffOne.lastUpdate}</td>
+        	<td>SID</td>
+            <td>${staffOne.SID}</td>
         </tr>
     </table>
   	<div>

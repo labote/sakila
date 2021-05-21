@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.sakila.mapper.StaffMapper;
 import com.gd.sakila.vo.PageParam;
 import com.gd.sakila.vo.Staff;
+import com.gd.sakila.vo.StaffList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +38,7 @@ public class StaffService {
 	}
 	
 	// 한 직원 정보 출력 메서드
-	public Staff getStaffOne(int staffId) {
+	public StaffList getStaffOne(int staffId) {
 		
 		// 디버깅
 		log.debug("getStaffOne의 파라미터(staffId) : " + staffId);

@@ -12,7 +12,20 @@
 		</where>
 	</select>
 	
-	<select id="selectStaffOne" parameterType="int" resultType="com.gd.sakila.vo.Staff">
-		SELECT staff_id staffId, CONCAT(first_name, _utf8mb4' ', last_name) name, picture picture, email email, store_id storeId, active active, username username, last_update lastUpdate FROM staff WHERE staff_id = #{staffId}
+	<select id="selectStaffOne" parameterType="int" resultType="com.gd.sakila.vo.StaffList">
+		SELECT 
+			s.staff_id ID, 
+			CONCAT(s.first_name, _utf8mb4' ', s.last_name) NAME, 
+			a.address address, 
+			a.postal_code zipCode, 
+			a.phone phone,
+			city.city city, 
+			country.country country, 
+			s.store_id SID
+		FROM staff s 
+				JOIN address a ON s.address_id = a.address_id 
+				JOIN city ON a.city_id = city.city_id
+				JOIN country ON city.country_id = country.country_id 
+		WHERE s.staff_id = #{ID}
 	</select>
 </mapper>

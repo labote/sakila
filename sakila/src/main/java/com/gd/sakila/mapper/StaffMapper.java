@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.sakila.vo.PageParam;
 import com.gd.sakila.vo.Staff;
+import com.gd.sakila.vo.StaffList;
 
 /*
  * @Component, @Repository, @Service, @Controller --> Bean(스프링이라는 컨테이너 안에 미리 객체를 생성해두는 곳) --> 1. spring.getBean(클래스타입), @Autowired <-- Dependency Injection
@@ -16,5 +17,5 @@ import com.gd.sakila.vo.Staff;
 public interface StaffMapper {
 	Staff selectStaffLogin(Staff staff);
 	List<Staff> selectStaffAll(PageParam pageParam); // 아직 페이징할지 안할지 결정을 못했지만 일단 PageParam 형태로 입력받음
-	Staff selectStaffOne(int staffId);
+	StaffList selectStaffOne(int staffId);
 }
