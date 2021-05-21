@@ -37,6 +37,7 @@
 	<!-- 로그인 On -->
 	<c:if test="${loginStaff != null}">
 		<a href="${pageContext.request.contextPath}/admin/getBoardList">BoardList</a>
+		<a href="${pageContext.request.contextPath}/admin/getStaffList">StaffList</a>
 		<a href="${pageContext.request.contextPath}/admin/logout">logout</a>
 	</c:if>
 </body>

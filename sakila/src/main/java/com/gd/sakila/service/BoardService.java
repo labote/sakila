@@ -1,7 +1,6 @@
 package com.gd.sakila.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +51,21 @@ public class BoardService {
 		int commentRow = commentMapper.deleteCommentByBoardId(board.getBoardId());
 		log.debug("deleteComment : " + commentRow);
 		
+		// 3) 물리적 파일 삭제(/resource/)
+		List<Boardfile> boardfileList = boardfileMapper.selectboardfileByBoardId(board.getBoardId());
+		if(boardfileList != null) {
+			for(Boardfile f : boardfileList) {
+				File temp = new File(""); // 빈 파일 위치는 프로젝트 위치
+				String path = temp.getAbsolutePath(); // 빈 파일 위치
+				File file = new File(path + "\\src\\main\\webapp\\resource\\" + f.getBoardfileName());
+				file.delete();
+			}
+		}
+		
+		// 4) boardfile 삭제(파일 테이블 행 삭제)
+		int boardfileRow = boardfileMapper.deleteBoardfileByBoardId(board.getBoardId());
+		log.debug("deletefile : " + boardfileRow);
+		
 		return boardRow;
 	}
 	
@@ -70,19 +84,23 @@ public class BoardService {
 		// 디버깅
 		log.debug("boardId 확인 : " + boardId);
 		
-		// boardOne
+		// 1) boardOne
 		Map<String, Object> boardOneMap = boardMapper.selectBoardOne(boardId);
-		
 		// 디버깅
 		log.debug(boardOneMap.toString());
 		
-		// comment
-		List<Comment> commentList = commentMapper.selectCommentListByBoard(boardId);
+		// 2) boardfile 목록
+		List<Boardfile> boardfileList = boardfileMapper.selectboardfileByBoardId(boardId);
+		// 디버깅
+		log.debug(boardfileList.toString());
 		
+		// 3) comment
+		List<Comment> commentList = commentMapper.selectCommentListByBoard(boardId);
 		// 디버깅
 		log.debug(commentList.toString());
 		
 		Map<String, Object> map = new HashMap<>();
+		map.put("boardfileList", boardfileList);
 		map.put("boardOneMap", boardOneMap);
 		map.put("commentList", commentList);
 		
@@ -127,7 +145,9 @@ public class BoardService {
 				// 2-2)
 				// 파일 저장
 				try {
-					f.transferTo(new File("D:\\upload\\" + filename));
+					File temp = new File(""); // 빈 파일 위치는 프로젝트 위치
+					String path = temp.getAbsolutePath(); // 빈 파일 위치
+					f.transferTo(new File(path + "\\src\\main\\webapp\\resource\\" + filename));
 				} catch (Exception e) {
 					throw new RuntimeException();
 				}

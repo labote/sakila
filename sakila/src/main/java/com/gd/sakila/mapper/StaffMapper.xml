@@ -4,4 +4,15 @@
 	<select id="selectStaffLogin" parameterType="com.gd.sakila.vo.Staff" resultType="com.gd.sakila.vo.Staff">
 		SELECT staff_id staffId, email email, username username FROM staff WHERE email=#{email} AND password=PASSWORD(#{password})
 	</select>
+	
+	<select id="selectStaffAll" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.Staff">
+		SELECT staff_id staffId, CONCAT(first_name, _utf8mb4' ', last_name) name, email email, store_id storeId, active active, username username FROM staff
+		<where>
+			<if test="searchWord != null"> username LIKE CONCAT('%',#{searchWord},'%') </if>
+		</where>
+	</select>
+	
+	<select id="selectStaffOne" parameterType="int" resultType="com.gd.sakila.vo.Staff">
+		SELECT staff_id staffId, CONCAT(first_name, _utf8mb4' ', last_name) name, picture picture, email email, store_id storeId, active active, username username, last_update lastUpdate FROM staff WHERE staff_id = #{staffId}
+	</select>
 </mapper>

@@ -15,4 +15,5 @@ public class Staff {
 	private String username;
 	private String password;
 	private String lastUpdate;
+	private String name;
 }

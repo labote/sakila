@@ -96,7 +96,8 @@ public class BoardController {
 		
 		// 디버깅
 		log.debug("boardOne : " + boardOne.toString());
-		
+		// view 작업의 편의성을 위해 풀어서 보내준다
+		model.addAttribute("boardfileList", boardOne.get("boardfileList"));
 		model.addAttribute("boardOneMap", boardOne.get("boardOneMap"));
 		model.addAttribute("commentList", boardOne.get("commentList"));
 		return "getBoardOne";

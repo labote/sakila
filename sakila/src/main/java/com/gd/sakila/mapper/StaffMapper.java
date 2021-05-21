@@ -1,7 +1,10 @@
 package com.gd.sakila.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.sakila.vo.PageParam;
 import com.gd.sakila.vo.Staff;
 
 /*
@@ -12,4 +15,6 @@ import com.gd.sakila.vo.Staff;
 @Mapper // mapper.xml을 찾아서 메서드명과 mapper의 id 이름이 같으면 합쳐서 메서드 구현클래스 생성시 오버라이딩을 한다.
 public interface StaffMapper {
 	Staff selectStaffLogin(Staff staff);
+	List<Staff> selectStaffAll(PageParam pageParam); // 아직 페이징할지 안할지 결정을 못했지만 일단 PageParam 형태로 입력받음
+	Staff selectStaffOne(int staffId);
 }
