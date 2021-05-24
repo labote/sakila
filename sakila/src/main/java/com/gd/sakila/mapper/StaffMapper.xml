@@ -5,8 +5,20 @@
 		SELECT staff_id staffId, email email, username username FROM staff WHERE email=#{email} AND password=PASSWORD(#{password})
 	</select>
 	
-	<select id="selectStaffAll" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.Staff">
-		SELECT staff_id staffId, CONCAT(first_name, _utf8mb4' ', last_name) name, email email, store_id storeId, active active, username username FROM staff
+	<select id="selectStaffAll" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.StaffList">
+		SELECT 
+			s.staff_id ID, 
+			CONCAT(s.first_name, _utf8mb4' ', s.last_name) NAME, 
+			a.address address, 
+			a.postal_code zipCode, 
+			a.phone phone,
+			city.city city, 
+			country.country country, 
+			s.store_id SID
+		FROM staff s 
+				JOIN address a ON s.address_id = a.address_id 
+				JOIN city ON a.city_id = city.city_id
+				JOIN country ON city.country_id = country.country_id 
 		<where>
 			<if test="searchWord != null"> username LIKE CONCAT('%',#{searchWord},'%') </if>
 		</where>

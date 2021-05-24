@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.StaffService;
-import com.gd.sakila.vo.Staff;
 import com.gd.sakila.vo.StaffList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ public class StaffController {
 		log.debug("searchWord : " + searchWord);
 		
 		// Staff 정보 리스트 가져온다
-		List<Staff> staffList = staffService.getStaffList(searchWord);
+		List<StaffList> staffList = staffService.getStaffList(searchWord);
 		// 디버깅
 		log.debug("staffList : " + staffList.toString());
 		

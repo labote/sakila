@@ -16,6 +16,6 @@ import com.gd.sakila.vo.StaffList;
 @Mapper // mapper.xml을 찾아서 메서드명과 mapper의 id 이름이 같으면 합쳐서 메서드 구현클래스 생성시 오버라이딩을 한다.
 public interface StaffMapper {
 	Staff selectStaffLogin(Staff staff);
-	List<Staff> selectStaffAll(PageParam pageParam); // 아직 페이징할지 안할지 결정을 못했지만 일단 PageParam 형태로 입력받음
+	List<StaffList> selectStaffAll(PageParam pageParam); // 아직 페이징할지 안할지 결정을 못했지만 일단 PageParam 형태로 입력받음
 	StaffList selectStaffOne(int staffId);
 }

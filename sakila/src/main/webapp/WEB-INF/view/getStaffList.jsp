@@ -22,24 +22,26 @@
     <h1>getStaffList</h1>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th>staffId</th>
-                <th>name</th>
-                <th>email</th>
-                <th>storeId</th>
-                <th>username</th>
-                <th>active</th>
-            </tr>
+	        <tr>
+	        	<td>ID</td>
+	        	<td>name</td>
+	        	<td>zipCode</td>
+	        	<td>phone</td>
+	        	<td>city</td>
+	        	<td>country</td>
+        		<td>SID</td>
+       		</tr>
         </thead>
         <tbody>
             <c:forEach var="s" items="${staffList}">
                 <tr>
-                	<td>${s.staffId}</td>
-                    <td><a href="${pageContext.request.contextPath}/admin/getStaffOne?staffId=${s.staffId}">${s.name}</a></td>
-                    <td>${s.email}</td>
-                    <td>${s.storeId}</td>
-                    <td>${s.username}</td>   
-                    <td>${s.active}</td> 
+                	<td>${s.ID}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/getStaffOne?staffId=${s.ID}">${s.name}</a></td>
+                    <td>${s.zipCode}</td>
+                    <td>${s.phone}</td>
+                    <td>${s.city}</td>   
+                    <td>${s.country}</td> 
+                    <td>${s.SID}</td>
                 </tr>
             </c:forEach>
         </tbody>

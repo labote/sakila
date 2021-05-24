@@ -27,7 +27,7 @@ public class StaffService {
 	}
 	
 	// 모든 직원 출력 메서드
-	public List<Staff> getStaffList(String searchWord){
+	public List<StaffList> getStaffList(String searchWord){
 		// 디버깅
 		log.debug("getStaffList의 파라미터(searchWord) : " + searchWord);
 		
