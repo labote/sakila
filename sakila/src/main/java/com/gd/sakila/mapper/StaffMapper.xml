@@ -7,20 +7,17 @@
 	
 	<select id="selectStaffAll" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.StaffList">
 		SELECT 
-			s.staff_id ID, 
-			CONCAT(s.first_name, _utf8mb4' ', s.last_name) NAME, 
-			a.address address, 
-			a.postal_code zipCode, 
-			a.phone phone,
-			city.city city, 
-			country.country country, 
-			s.store_id SID
-		FROM staff s 
-				JOIN address a ON s.address_id = a.address_id 
-				JOIN city ON a.city_id = city.city_id
-				JOIN country ON city.country_id = country.country_id 
+			ID ID, 
+			NAME NAME, 
+			address address, 
+			'zip Code',
+			phone phone,
+			city city, 
+			country country, 
+			SID SID
+		FROM staff_list
 		<where>
-			<if test="searchWord != null"> username LIKE CONCAT('%',#{searchWord},'%') </if>
+			<if test="searchWord != null"> NAME LIKE CONCAT('%',#{searchWord},'%') </if>
 		</where>
 	</select>
 	
