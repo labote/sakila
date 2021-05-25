@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service // 붙어있어야 객체가 만들어짐
 @Transactional // spring에 트랜잭션기능이 있다. 어떤 메서드를 실행하다가 에러가뜨면 그 메서드가 있는 서비스 롤백
 public class CommentService {
+	// spring에는 Mapper에 객체 주입하는 기능이 있음(의존성 주입 = Dependency Injection)
 	@Autowired private CommentMapper commentMapper;
 	
 	// comment 추가 메서드

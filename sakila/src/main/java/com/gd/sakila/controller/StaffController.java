@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.StaffService;
+import com.gd.sakila.vo.Staff;
 import com.gd.sakila.vo.StaffList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class StaffController {
 		// 디버깅
 		log.debug("getStaffOne의 staffId : " + staffId);
 		
-		StaffList staffOne = staffService.getStaffOne(staffId);
+		Staff staffOne = staffService.getStaffOne(staffId);
 		// 디버깅
 		log.debug("staffOne : " + staffOne.toString());
 		

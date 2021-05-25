@@ -22,32 +22,40 @@
     <h1>getStaffOne</h1>
     <table class="table table-striped">
         <tr>
-        	<td>ID</td>
-            <td>${staffOne.ID}</td>
+        	<td>staffId</td>
+            <td>${staffOne.staffId}</td>
         </tr>
         <tr>
-        	<td>name</td>
-            <td>${staffOne.name}</td>
+        	<td>firstName</td>
+            <td>${staffOne.firstName}</td>
         </tr>
         <tr>
-        	<td>zipCode</td>
-            <td>${staffOne.zipCode}</td>
+        	<td>lastName</td>
+            <td>${staffOne.lastName}</td>
         </tr>
         <tr>
-        	<td>phone</td>
-            <td>${staffOne.phone}</td>
+        	<td>addressId</td>
+            <td>${staffOne.addressId}</td>
         </tr>
         <tr>
-        	<td>city</td>
-            <td>${staffOne.city}</td>
+        	<td>email</td>
+            <td>${staffOne.email}</td>
         </tr>
         <tr>
-        	<td>country</td>
-            <td>${staffOne.country}</td>
+        	<td>storeId</td>
+            <td>${staffOne.storeId}</td>
         </tr>
         <tr>
-        	<td>SID</td>
-            <td>${staffOne.SID}</td>
+        	<td>active</td>
+            <td>${staffOne.active}</td>
+        </tr>
+         <tr>
+        	<td>username</td>
+            <td>${staffOne.username}</td>
+        </tr>
+         <tr>
+        	<td>lastUpdate</td>
+            <td>${staffOne.lastUpdate}</td>
         </tr>
     </table>
   	<div>

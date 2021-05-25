@@ -17,5 +17,5 @@ import com.gd.sakila.vo.StaffList;
 public interface StaffMapper {
 	Staff selectStaffLogin(Staff staff);
 	List<StaffList> selectStaffAll(PageParam pageParam); // 아직 페이징할지 안할지 결정을 못했지만 일단 PageParam 형태로 입력받음
-	StaffList selectStaffOne(int staffId);
+	Staff selectStaffOne(int staffId);
 }

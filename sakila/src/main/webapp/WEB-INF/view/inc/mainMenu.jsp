@@ -13,6 +13,7 @@
 			<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/getBoardList">BoardList</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/getStaffList">StaffList</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/getFilmList">FilmList</a></li>
 		</ul>
 	</div>
 </body>

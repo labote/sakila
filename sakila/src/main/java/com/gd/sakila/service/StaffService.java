@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional // spring에 트랜잭션기능이 있다. 어떤 메서드를 실행하다가 에러가뜨면 그 메서드가 있는 서비스 롤백
 public class StaffService {
 	
-	@Autowired private StaffMapper staffMapper; // spring에는 countryMapper에 객체 주입하는 기능이 있음(의존성 주입 = Dependency Injection), 없으면 NullPointException 발생
+	@Autowired private StaffMapper staffMapper; // spring에는 Mapper에 객체 주입하는 기능이 있음(의존성 주입 = Dependency Injection), 없으면 NullPointException 발생
 	
 	// 로그인 메서드
 	public Staff login(Staff staff) {
@@ -38,7 +38,7 @@ public class StaffService {
 	}
 	
 	// 한 직원 정보 출력 메서드
-	public StaffList getStaffOne(int staffId) {
+	public Staff getStaffOne(int staffId) {
 		
 		// 디버깅
 		log.debug("getStaffOne의 파라미터(staffId) : " + staffId);
