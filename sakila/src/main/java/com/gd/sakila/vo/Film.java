@@ -14,6 +14,7 @@ public class Film {
 	private double rentalRate;
 	private int length;
 	private double replacementCost;
+	private String actors;
 	private String rating;
 	private String specialFeatures;
 	private String lastUpdate;

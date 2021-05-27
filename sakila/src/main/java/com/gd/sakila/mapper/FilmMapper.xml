@@ -69,21 +69,45 @@
 		</where>
 	</select>
 	
+	<select id="selectActorListByFilm" parameterType="int" resultType="java.util.Map">
+		SELECT
+			a.actor_id actorId,
+			CONCAT(first_name, ' ' , last_name) name,
+			film_id filmId
+		FROM actor a LEFT JOIN (SELECT
+									*
+								FROM film_actor
+								WHERE film_id=#{filmId}) t
+		ON a.actor_id = t.actor_id
+		ORDER BY first_name ASC
+	</select>
+	
+	<delete id="deleteActorListByFilm" parameterType="int">
+		delete from film_actor where film_id =  #{filmId}
+	</delete>
+	
+	<insert id="insertActorListByFilm" parameterType="int">
+		insert into film_actor(actor_id, film_id) values(#{actorId}, #{filmId})
+	</insert>
 	<select id="selectFilmOne" parameterType="int" resultType="com.gd.sakila.vo.Film">
 		SELECT 
-			film_id filmId, 
-			title title, 
-			description description, 
-			release_year releaseYear, 
-			language_id languageId, 
-			original_language_id originalLanguageId, 
-			rental_duration rentalDuration, 
-			rental_rate rentalRate, 
-			length length, 
-			replacement_cost replacementCost, 
-			rating rating, 
-			special_features specialFeatures, 
-			last_update lastUpdate 
-		FROM film WHERE film_id = #{val}
+			f.film_id filmId, 
+			f.title title, 
+			f.description description, 
+			f.release_year releaseYear, 
+			f.language_id languageId, 
+			f.original_language_id originalLanguageId, 
+			f.rental_duration rentalDuration, 
+			f.rental_rate rentalRate, 
+			f.length length, 
+			f.replacement_cost replacementCost, 
+			f.rating rating, 
+			f.special_features specialFeatures, 
+			f.last_update lastUpdate,
+			GROUP_CONCAT(CONCAT(actor.first_name, _utf8mb4' ', actor.last_name) SEPARATOR ', ') actors
+		FROM film f 
+			LEFT JOIN film_actor ON f.film_id = film_actor.film_id
+			LEFT JOIN actor ON film_actor.actor_id = actor.actor_id
+		WHERE f.film_id = #{val}
 	</select>
 </mapper>

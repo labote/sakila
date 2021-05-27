@@ -1,11 +1,13 @@
 package com.gd.sakila.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,6 +24,40 @@ public class FilmController {
 	@Autowired
 	private FilmService filmService;
 
+	@PostMapping("/modifyFilmActor")
+	public String modifyFilmActor(@RequestParam(value = "filmId", required = true) int filmId,
+									@RequestParam(value = "ck", required = true) int[] ck) {
+		// 디버깅
+		log.debug("modifyFilmActor param(filmId) : " + filmId);
+		log.debug("modifyFilmActor param(ck) : " + ck.length);
+		
+		// modify
+		filmService.modifyFilmActor(ck, filmId);
+		
+		// service - mapper
+		// delete from film_actor where film_id =  #{filmId}
+		// for문
+		// insert into(actor_id, film_id) values(#{ck[0], #ck[1], .... )
+
+		return "redirect:/admin/getFilmOne?filmId=" + filmId;
+	}
+	
+	// getActorListByFilm 맵핑
+	@GetMapping("/getActorListByFilm")
+	public String getActorListByFilm(Model model, @RequestParam(value = "filmId", required = true) int filmId) {
+		//디버깅
+		log.debug("getActorListByFilm param(filmId) : " + filmId);
+		
+		List<Map<String, Object>> filmActorList = filmService.getActorListByFilm(filmId);
+		log.debug("getActorListByFilm filmActorList size : " + filmActorList.size());
+		
+		model.addAttribute("filmActorList", filmActorList);
+		model.addAttribute("filmId", filmId);
+		
+		return "getActorListByFilm";
+	}
+	
+	// getFilmOne 맵핑
 	@GetMapping("/getFilmOne")
 	public String getFilmOne(Model model, @RequestParam(value = "filmId", required = true) int filmId,
 			@RequestParam(name = "categoryName", required = false) String categoryName,

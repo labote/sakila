@@ -21,11 +21,11 @@
 		});
 	});
 </script>
-<title>addActor</title>
+<title>addActors</title>
 </head>
 <body>
     <div class="container">
-        <h1>addActor</h1>
+        <h1>addActors</h1>
         <form id="actorForm" action="${pageContext.request.contextPath}/admin/addActor" method="post">
             <div class="form-group">
                 <label for="firstName">firstName :</label> <input

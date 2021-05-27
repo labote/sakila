@@ -23,6 +23,24 @@ public class FilmService {
 	@Autowired private FilmMapper filmMapper; // spring에는 Mapper에 객체 주입하는 기능이 있음(의존성 주입 = Dependency Injection)
 	@Autowired private CategoryMapper categoryMapper;
 	
+	// Delete + Insert
+	public void modifyFilmActor(int[] actorId, int filmId) {
+		
+		int deleteRow = filmMapper.deleteActorListByFilm(filmId);
+		log.debug("FilmActor deleteRow : " + deleteRow);
+		
+		for(int i=0;i<actorId.length;i++) {
+			int insertRow = filmMapper.insertActorListByFilm(actorId[i], filmId);
+			log.debug("FilmActor insertRow : " + insertRow);
+		}
+		
+	}
+	
+	// Actor By Film 출력 메서드
+	public List<Map<String, Object>> getActorListByFilm(int filmId){
+		return filmMapper.selectActorListByFilm(filmId);
+	}
+	
 	// FilmOne 출력 메서드
 	// map <-- film, filmCount
 	public Map<String, Object> getFilmOne(int filmId){

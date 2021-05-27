@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.CountryService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller // 컴포넌트로 객체가 자동으로 만들어진다. 서블릿처럼 행동하는 클래스를 상속받음, new ControllerMapper -> new CountryService
 @RequestMapping("/admin")
 public class CountryController {

@@ -11,6 +11,20 @@
 		)
 	</insert>
 	
+	<select id="selectActors" parameterType="int" resultType="java.util.Map">
+		SELECT 
+			a.actor_id actorId, 
+			CONCAT(a.first_name,' ', a.last_name) name, 
+			if(t.actor_id IS NULL, 'F', 'T') ck
+		FROM actor a LEFT JOIN (SELECT 
+									actor_id,
+									film_id 
+								FROM film_actor
+								WHERE film_id = 1) t 
+								ON a.actor_id = t.actor_id
+		ORDER BY first_name
+	</select>
+	
 	<select id="selectActorInfoList" parameterType="com.gd.sakila.vo.PageParam" resultType="java.util.Map">
 		SELECT
 			actor_id actorId,

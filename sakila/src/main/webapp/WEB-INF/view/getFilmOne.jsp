@@ -73,6 +73,12 @@
     		<td>${film.lastUpdate}</td>
     	</tr>
     	<tr>
+    		<td>actors
+    			<a href="${pageContext.request.contextPath}/admin/getActorListByFilm?filmId=${film.filmId}"><button type="button">출연 배우 수정</button></a>
+    		</td>
+    		<td>${film.actors}</td>
+    	</tr>
+    	<tr>
     		<td>Store1</td>
     		<td>${filmCount}</td>
     	</tr>

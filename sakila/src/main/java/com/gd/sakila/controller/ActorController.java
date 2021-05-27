@@ -61,9 +61,11 @@ public class ActorController {
 		log.debug("getActorList(Controller) rowPerPage : " + rowPerPage);
 		log.debug("getActorList(Controller) serachWord : " + searchWord);
 		
+		// Service에서 Map형태로 가져오기 때문에 Map으로 받는다.
 		Map<String, Object> ActorMap = actorService.getActorList(searchWord, currentPage, rowPerPage);
 		log.debug("getActorList(Controller) ActorMap : " + ActorMap.toString());
 		
+		// addAttribute 함수를 통해 파라미터들을 view에 넘겨준다.
 		model.addAttribute("lastPage", ActorMap.get("lastPage"));
 		model.addAttribute("actorList", ActorMap.get("actorList"));
 		model.addAttribute("searchWord", searchWord);

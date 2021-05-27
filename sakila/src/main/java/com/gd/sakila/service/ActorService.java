@@ -21,6 +21,14 @@ public class ActorService {
 	
 	@Autowired private ActorMapper actorMapper;
 	
+	// addActors method
+	public List<Map<String, Object>> getActors(int filmId) {
+		// 디버깅 
+		log.debug("addActor method param(filmId) : " + filmId);
+		
+		return actorMapper.selectActors(filmId);
+	}
+	
 	// addActor method
 	public int addActor(Actor actor) {
 		// 디버깅

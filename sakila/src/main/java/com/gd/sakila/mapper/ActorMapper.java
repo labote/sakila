@@ -12,5 +12,6 @@ import com.gd.sakila.vo.PageParam;
 public interface ActorMapper {
 	int insertActor(Actor actor);
 	int selectActorTotal(String searchWord);
+	List<Map<String, Object>> selectActors(int filmId);
 	List<Map<String, Object>> selectActorInfoList(PageParam pageParam);
 }
