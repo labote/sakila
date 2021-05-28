@@ -17,5 +17,6 @@ public class Film {
 	private String actors;
 	private String rating;
 	private String specialFeatures;
+	//private Set<String> specialFeatures;
 	private String lastUpdate;
 }

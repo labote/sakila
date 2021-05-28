@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.CategoryMapper;
 import com.gd.sakila.mapper.FilmMapper;
+import com.gd.sakila.vo.Category;
 import com.gd.sakila.vo.Film;
+import com.gd.sakila.vo.FilmForm;
 import com.gd.sakila.vo.PageParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,25 @@ public class FilmService {
 	
 	@Autowired private FilmMapper filmMapper; // spring에는 Mapper에 객체 주입하는 기능이 있음(의존성 주입 = Dependency Injection)
 	@Autowired private CategoryMapper categoryMapper;
+	
+	/*
+	 *  param : film입력폼
+	 *  return : 입력된 filmId 값
+	 */
+	// Film 추가
+	public int addFilm(FilmForm filmForm) {
+		Film film = filmForm.getFilm();
+		
+		// filmId 생성된 후 film.setFilmId(생성된 값) 호출
+		filmMapper.insertFilm(film);
+		Map<String, Object> addFilmMap = new HashMap<>();
+		addFilmMap.put("categoryId", filmForm.getCategory().getCategoryId());
+		addFilmMap.put("filmId",film.getFilmId());
+		
+		filmMapper.insertFilmCategory(addFilmMap);
+		
+		return film.getFilmId();
+	}
 	
 	// Delete + Insert
 	public void modifyFilmActor(int[] actorId, int filmId) {
@@ -136,7 +157,7 @@ public class FilmService {
 		
 		// dao 호출
 		List<Map<String,Object>> filmList = filmMapper.selectFilmList(paramMap);
-		List<String> categoryNameList = categoryMapper.selectCategoryNameList();
+		List<Category> categoryNameList = categoryMapper.selectCategoryNameList();
 		List<String> ratingList = filmMapper.selectRatingList();
 		int filmTotal = filmMapper.selectFilmTotal(paramMap);
 		

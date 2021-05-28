@@ -42,12 +42,12 @@
 			 	category :
 			 	<select name="categoryName">
 			 		<option value="">카테고리 선택</option>
-				 	<c:forEach var="name" items="${categoryNameList}">
-				 		<c:if test="${name == categoryName}">
-				 			<option value="${name}" selected="selected">${name}</option>
+				 	<c:forEach var="c" items="${categoryNameList}">
+				 		<c:if test="${c.name == categoryName}">
+				 			<option value="${c.name}" selected="selected">${c.name}</option>
 				 		</c:if>
-				 		<c:if test="${name != categoryName}">
-				 			<option value="${name}">${name}</option>
+				 		<c:if test="${c.name != categoryName}">
+				 			<option value="${c.name}">${c.name}</option>
 				 		</c:if>
 				 	</c:forEach>
 			 	</select>

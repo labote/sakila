@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gd.sakila.service.CategoryService;
 import com.gd.sakila.service.FilmService;
+import com.gd.sakila.service.LanguageService;
+import com.gd.sakila.vo.Category;
+import com.gd.sakila.vo.FilmForm;
+import com.gd.sakila.vo.Language;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,11 +24,30 @@ import lombok.extern.slf4j.Slf4j;
 @Controller // 컴포넌트로 객체가 자동으로 만들어진다. 서블릿처럼 행동하는 클래스를 상속받음
 @RequestMapping("/admin")
 public class FilmController {
-
+	
 	// nullpointException이 발생 -> Autowired 에노테이션을 통해 객체를 주입 시켜준다
-	@Autowired
-	private FilmService filmService;
-
+	@Autowired private FilmService filmService;
+	@Autowired private CategoryService categoryService;
+	@Autowired private LanguageService languageService;
+	
+	@GetMapping("/addFilm")
+	public String addFilm(Model model) {
+		// categoryList
+		List<Category> categoryList = categoryService.getCategoryList();
+		List<Language> languageList = languageService.getLanguagList();
+		
+		model.addAttribute("categoryList",categoryList);
+		model.addAttribute("languageList",languageList);
+		
+		return "addFilm";
+	}
+	
+	@PostMapping("/addFilm") // 기본(값)타입 매개변수의 이름과 name이 같으면 맵핑 setFilmId
+	public String addFilm(FilmForm filmForm) { // 참조타입은 필드명과 name이 같으면 맵핑
+		int filmId = filmService.addFilm(filmForm);
+		return "redirect:/admin/getFilmOne?filmId=" + filmId;
+	}
+	
 	@PostMapping("/modifyFilmActor")
 	public String modifyFilmActor(@RequestParam(value = "filmId", required = true) int filmId,
 									@RequestParam(value = "ck", required = true) int[] ck) {
