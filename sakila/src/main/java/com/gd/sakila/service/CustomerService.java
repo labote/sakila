@@ -23,5 +23,6 @@ public class CustomerService {
 		int row = customerMapper.updateCustomerActiveByScheduler();
 		// 디버깅
 		log.debug("modifyCustomerActiveByScheduler 실행 여부 : " + row);
+		
 	}
 }
