@@ -118,7 +118,7 @@ public class FilmController {
 		return "getFilmOne";
 	}
 
-	// getFilmList2 맵핑
+	// getFilmList 맵핑
 	@GetMapping("/getFilmList")
 	public String getFilmList(Model model, @RequestParam(name = "categoryName", required = false) String categoryName,
 			@RequestParam(name = "price", required = false) Double price, // null 때문에 Double 사용(double x)

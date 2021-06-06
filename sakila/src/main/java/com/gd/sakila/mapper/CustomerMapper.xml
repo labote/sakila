@@ -5,4 +5,46 @@
 		<!-- UPDATE customer SET active = 0 WHERE customer_id IN (SELECT customer_id FROM rental GROUP BY customer_id HAVING datediff(NOW(), max(rental_date)) > 365 ORDER BY datediff(NOW(), max(rental_date)) DESC) --> 
 		UPDATE customer c, (SELECT customer_id, max(rental_date), datediff(NOW(), max(rental_date)) FROM rental GROUP BY customer_id HAVING datediff(NOW(), max(rental_date)) > 365) A SET c.active = 0 WHERE c.customer_id = A.customer_id
 	</update>
+	
+	<select id="selectCustomerList" parameterType="java.util.Map" resultType="com.gd.sakila.vo.Customer">
+		SELECT
+			customer_id customerId,
+			store_id storeId,
+			CONCAT(first_name,' ', last_name) name,
+			email email,
+			address_id addressId,
+			active active,
+			create_date createDate,
+			last_update lastUpdate
+		FROM customer
+		<where>
+			<if test="storeId != null">
+				AND storeId = #{storeId}
+			</if>
+			<if test="active != null">
+				AND active = #{active}
+			</if>
+			<if test="name != null">
+				AND name like CONCAT('%',#{name},'%')
+			</if>
+		</where>
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectCustomerTotal" parameterType="java.util.Map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM customer
+		<where>
+			<if test="storeId != null">
+				AND storeId = #{storeId}
+			</if>
+			<if test="active != null">
+				AND active = #{active}
+			</if>
+			<if test="name != null">
+				AND name like CONCAT('%',#{name},'%')
+			</if>
+		</where>
+	</select>
 </mapper>
