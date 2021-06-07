@@ -19,13 +19,13 @@
 		FROM customer
 		<where>
 			<if test="storeId != null">
-				AND storeId = #{storeId}
+				AND store_id = #{storeId}
 			</if>
 			<if test="active != null">
 				AND active = #{active}
 			</if>
 			<if test="name != null">
-				AND name like CONCAT('%',#{name},'%')
+				AND CONCAT(first_name,' ', last_name) like CONCAT('%',#{name},'%')
 			</if>
 		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
@@ -37,13 +37,13 @@
 		FROM customer
 		<where>
 			<if test="storeId != null">
-				AND storeId = #{storeId}
+				AND store_id = #{storeId}
 			</if>
 			<if test="active != null">
 				AND active = #{active}
 			</if>
 			<if test="name != null">
-				AND name like CONCAT('%',#{name},'%')
+				AND CONCAT(first_name,' ', last_name) like CONCAT('%',#{name},'%')
 			</if>
 		</where>
 	</select>

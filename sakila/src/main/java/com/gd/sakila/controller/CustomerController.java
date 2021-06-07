@@ -34,16 +34,6 @@ public class CustomerController {
 			name = null;
 		}
 
-		// store 선택시 공백 -> null로 수정
-		if (storeId != null && storeId.equals("")) {
-			storeId = null;
-		}
-
-		// 활성화 상태 선택시 공백 -> null로 수정
-		if (active != null && active == 0) {
-			active = null;
-		}
-
 		// 디버깅
 		log.debug("getCustomerList method Param(name) : " + name);
 		log.debug("getCustomerList method Param(storeId) : " + storeId);

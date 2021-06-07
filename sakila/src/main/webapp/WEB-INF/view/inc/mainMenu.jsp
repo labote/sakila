@@ -16,6 +16,7 @@
 			<li><a href="${pageContext.request.contextPath}/admin/getFilmList">FilmList</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/getActorList">ActorList</a></li>
 			<li><a href="${pageContext.request.contextPath}/admin/getInventoryInfoList">InventoryList</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/getCustomerList">CustomerList</a></li>
 		</ul>
 	</div>
 </body>
