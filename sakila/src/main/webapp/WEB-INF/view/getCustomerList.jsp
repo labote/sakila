@@ -89,6 +89,8 @@
 					<th>name</th>
 					<th>email</th>
 					<th>active</th>
+					<th>블랙리스트(연체 15회이상)</th>
+					<th>VIP(120$ 이상)</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -98,7 +100,16 @@
 						<td>${c.storeId}</td>
 						<td><a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${c.customerId}&currentPage=${currentPage}&name=${name}&active=${active}&storeId=${storeId}">${c.name}</a></td>
 						<td>${c.email}</td>
-						<td>${c.active}</td>
+						<td>
+							<c:if test="${c.active == 0}">inactive</c:if>
+							<c:if test="${c.active != 0}">active</c:if>	
+						</td>
+						<td style="text-align:center">
+							<c:if test="${c.cnt >= 15}"><span style="color:red">BlackList</span></c:if>
+						</td>
+						<td style="text-align:center">
+							<c:if test="${c.cnt < 15 && c.sum >= 120}"><span style="color:blue">VIP</span></c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -6,17 +6,17 @@
 		UPDATE customer c, (SELECT customer_id, max(rental_date), datediff(NOW(), max(rental_date)) FROM rental GROUP BY customer_id HAVING datediff(NOW(), max(rental_date)) > 365) A SET c.active = 0 WHERE c.customer_id = A.customer_id
 	</update>
 	
-	<select id="selectCustomerList" parameterType="java.util.Map" resultType="com.gd.sakila.vo.Customer">
+<!-- 	<select id="selectCustomerList" parameterType="java.util.Map" resultType="com.gd.sakila.vo.Customer">
 		SELECT
-			customer_id customerId,
-			store_id storeId,
-			CONCAT(first_name,' ', last_name) name,
-			email email,
-			address_id addressId,
-			active active,
-			create_date createDate,
-			last_update lastUpdate
-		FROM customer
+			c.customer_id customerId,
+			c.store_id storeId,
+			CONCAT(c.first_name,' ', c.last_name) name,
+			c.email email,
+			c.active active,
+			COUNT(IF(DATEDIFF(r.return_date, r.rental_date) > f.rental_duration, 1, NULL)) cnt
+		FROM customer c LEFT JOIN rental r ON c.customer_id = r.customer_id
+							LEFT JOIN inventory i ON i.inventory_id = r.inventory_id
+							LEFT JOIN film f ON i.film_id = f.film_id
 		<where>
 			<if test="storeId != null">
 				AND store_id = #{storeId}
@@ -28,7 +28,61 @@
 				AND CONCAT(first_name,' ', last_name) like CONCAT('%',#{name},'%')
 			</if>
 		</where>
+		GROUP BY c.customer_id
 		LIMIT #{beginRow}, #{rowPerPage}
+	</select> -->
+	
+	<select id="selectCustomerList" parameterType="java.util.Map" resultType="com.gd.sakila.vo.Customer">
+		SELECT 	
+			t.customer_id customerId,
+			t.store_id storeId,
+			t.name name,
+			t.email email,
+			t.address_id addressId,
+			t.active active,	
+			t.cnt cnt,
+			SUM(p.amount) sum
+		FROM payment p LEFT JOIN 
+		(SELECT
+			c.customer_id,
+			c.store_id,
+			CONCAT(c.first_name,' ', c.last_name) name,
+			c.email,
+			c.address_id,
+			c.active,	
+			COUNT(IF(DATEDIFF(r.return_date, r.rental_date) > f.rental_duration, 1, NULL)) cnt
+		FROM customer c LEFT JOIN rental r ON c.customer_id = r.customer_id
+							LEFT JOIN inventory i ON i.inventory_id = r.inventory_id
+							LEFT JOIN film f ON i.film_id = f.film_id
+		GROUP BY c.customer_id) t ON p.customer_id = t.customer_id
+
+		<where>
+			<if test="storeId != null">
+				AND store_id = #{storeId}
+			</if>
+			<if test="active != null">
+				AND active = #{active}
+			</if>
+			<if test="name != null">
+				AND CONCAT(first_name,' ', last_name) like CONCAT('%',#{name},'%')
+			</if>
+		</where>
+		GROUP BY p.customer_id
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectCustomerOne" parameterType="java.util.Map" resultType="int">
+		SELECT
+			ID customerId,
+			name,
+			address,
+			`zip code`,
+			phone,
+			city,
+			country,
+			SID
+		FROM customer_list
+		WHERE ID = #{customerId}
 	</select>
 	
 	<select id="selectCustomerTotal" parameterType="java.util.Map" resultType="int">

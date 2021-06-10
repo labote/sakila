@@ -32,6 +32,11 @@ public class CustomerService {
 		log.debug("modifyCustomerActiveByScheduler 실행 여부 : " + row);
 	}
 	
+	// 고객 상세정보
+	public Map<String, Object> getCustomerOne(int customerId){
+		return customerMapper.selectCustomerOne(customerId);
+	}
+	
 	// 고객 명단 리스트
 	public Map<String, Object> getCustomerList(String name, Integer storeId, Integer active, int currentPage, int rowPerPage){
 		

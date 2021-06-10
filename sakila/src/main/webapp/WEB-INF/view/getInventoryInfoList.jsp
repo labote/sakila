@@ -78,9 +78,6 @@
 	            <li class="next"><a href="${pageContext.request.contextPath}/admin/getInventoryInfoList?currentPage=${currentPage+1}&serachWord=${searchWord}">다음</a></li>
 	        </c:if>
 	    </ul>
-	    <div>
-	        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addInventory">인벤토리 추가</a>
-	    </div>
     </div>
 </body>
 </html>

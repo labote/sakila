@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>getFilmOne</title>
+<title>getCustomerOne</title>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -18,73 +18,39 @@
 <!-- mainMenu -->
 <jsp:include page="/WEB-INF/view/inc/mainMenu.jsp"></jsp:include>
 <div class="container">
-    <h1>getFilmOne</h1>
+    <h1>getCustomerOne</h1>
     <table class="table table-striped">
     	<tr>
-    		<td>filmId</td>
-    		<td>${film.filmId}</td>
+    		<td>customerId</td>
+    		<td>${getCustomerOne.filmId}</td>
     	</tr>
     	<tr>
-    		<td>title</td>
-    		<td>${film.title}</td>
+    		<td>name</td>
+    		<td>${getCustomerOne.name}</td>
     	</tr>
     	<tr>
-    		<td>description</td>
-    		<td>${film.description}</td>
+    		<td>address</td>
+    		<td>${getCustomerOne.address}</td>
     	</tr>
     	<tr>
-    		<td>releaseYear</td>
-    		<td>${film.releaseYear}</td>
+    		<td>zipCode</td>
+    		<td>${getCustomerOne.zipCode}</td>
     	</tr>
     	<tr>
-    		<td>languageId</td>
-    		<td>${film.languageId}</td>
+    		<td>phone</td>
+    		<td>${getCustomerOne.phone}</td>
     	</tr>
     	<tr>
-    		<td>originalLanguageId</td>
-    		<td>${film.originalLanguageId}</td>
+    		<td>city</td>
+    		<td>${getCustomerOne.city}</td>
     	</tr>
     	<tr>
-    		<td>rentalDuration</td>
-    		<td>${film.rentalDuration}</td>
+    		<td>country</td>
+    		<td>${getCustomerOne.country}</td>
     	</tr>
     	<tr>
-    		<td>rentalRate</td>
-    		<td>${film.rentalRate}</td>
-    	</tr>
-    	<tr>
-    		<td>length</td>
-    		<td>${film.length}</td>
-    	</tr>
-    	<tr>
-    		<td>replacementCost</td>
-    		<td>${film.replacementCost}</td>
-    	</tr>
-    	<tr>
-    		<td>rating</td>
-    		<td>${film.rating}</td>
-    	</tr>
-    	<tr>
-    		<td>specialFeatures</td>
-    		<td>${film.specialFeatures}</td>
-    	</tr>
-    	<tr>
-    		<td>lastUpdate</td>
-    		<td>${film.lastUpdate}</td>
-    	</tr>
-    	<tr>
-    		<td>actors
-    			<a href="${pageContext.request.contextPath}/admin/getActorListByFilm?filmId=${film.filmId}"><button type="button">출연 배우 수정</button></a>
-    		</td>
-    		<td>${film.actors}</td>
-    	</tr>
-    	<tr>
-    		<td>Store1</td>
-    		<td>${filmCount}</td>
-    	</tr>
-    	<tr>
-    		<td>Store2</td>
-    		<td>${filmCount2}</td>
+    		<td>SID</td>
+    		<td>${getCustomerOne.SID}</td>
     	</tr>
     </table>
     <div>

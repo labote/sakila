@@ -12,4 +12,6 @@ public class Customer {
 	private int active;
 	private String createDate;
 	private String lastUpdate;
+	private int cnt;
+	private int sum;
 }

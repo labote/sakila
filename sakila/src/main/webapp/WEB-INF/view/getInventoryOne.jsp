@@ -47,7 +47,7 @@
 							<td>${i.inventoryId}</td>
 							<td>
 								<c:if test="${(i.rentalDate == null && i.rentalDate == null) || i.returnDate != null}">대여 가능</c:if>
-								<c:if test="${i.returnDate != null && i.rentalDate == null}">대여 중</c:if>
+								<c:if test="${i.returnDate == null && i.rentalDate != null}">대여 중</c:if>
 							</td>
 							<td>
 								<c:if test="${(i.rentalDate == null && i.rentalDate == null) || i.returnDate != null}">

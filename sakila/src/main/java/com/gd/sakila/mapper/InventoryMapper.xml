@@ -18,17 +18,15 @@
 	</select>
 	
 	<select id="selectInvetoryOne" resultType="java.util.Map" parameterType="int">
-	SELECT
-		i.film_id filmId,
-		f.title title,
-		i.store_id storeId,
-		i.inventory_id inventoryId,
-		r.return_date returnDate,
-		r.rental_date rentalDate
-	FROM film f LEFT JOIN inventory i ON i.film_id = f.film_id
-				LEFT JOIN rental r ON i.inventory_id = r.inventory_id
-	GROUP BY i.inventory_id
-	HAVING i.film_id = #{filmId}
+		SELECT 
+			i.store_id storeId,
+			i.inventory_id inventoryId,
+			r.return_date returnDate,
+			r.rental_date rentalDate 
+		FROM inventory i JOIN (SELECT i.inventory_id inventoryId, MAX(r.rental_date) rental_date FROM inventory i LEFT JOIN rental r ON i.inventory_id = r.inventory_id GROUP BY i.inventory_id) t
+									ON i.inventory_id = t.inventoryId 
+						LEFT JOIN rental r ON r.rental_date = t.rental_date AND r.inventory_id = t.inventoryId
+		WHERE i.film_id = #{filmId}
 
 	</select>
 	
