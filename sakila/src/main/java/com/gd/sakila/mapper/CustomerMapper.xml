@@ -71,12 +71,12 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectCustomerOne" parameterType="java.util.Map" resultType="int">
+	<select id="selectCustomerOne" parameterType="int" resultType="com.gd.sakila.vo.CustomerList">
 		SELECT
 			ID customerId,
 			name,
 			address,
-			`zip code`,
+			`zip code` zipCode,
 			phone,
 			city,
 			country,
@@ -101,4 +101,8 @@
 			</if>
 		</where>
 	</select>
+	
+	<insert id="insertCustomer" parameterType="com.gd.sakila.vo.Customer">
+		INSERT INTO customer(store_id, first_name, last_name, email, address_id, create_date, last_update) VALUES(#{storeId}, #{firstName}, #{lastName}, #{email}, #{addressId}, NOW(), NOW())
+	</insert>
 </mapper>

@@ -22,7 +22,7 @@
     <table class="table table-striped">
     	<tr>
     		<td>customerId</td>
-    		<td>${getCustomerOne.filmId}</td>
+    		<td>${getCustomerOne.customerId}</td>
     	</tr>
     	<tr>
     		<td>name</td>
@@ -52,10 +52,40 @@
     		<td>SID</td>
     		<td>${getCustomerOne.SID}</td>
     	</tr>
+    	<tr>
+    		<td>amount</td>
+    		<td>${sum}$</td>
+    	</tr>
     </table>
     <div>
-        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmList?&currentPage=${currentPage}&categoryName=${categoryName}&title=${title}&price=${price}&actor=${actor}&rating=${rating}">홈</a>
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getCustomerList?&currentPage=${currentPage}&name=${name}&active=${active}&storeId=${storeId}">CustomerList</a>
     </div>
+    
+    <h3>RentalList</h3>
+    <table class="table table-striped">
+    	<tr>
+    		<td>title</td>
+    		<td>inventoryId</td>
+    		<td>rentalDate</td>
+    		<td>returnDate</td>
+    		<td>staffId</td>
+    		<td></td>
+    	</tr>
+    	<c:forEach var="r" items="${rentalList}">
+    		<tr>
+    			<td>${r.title}</td>
+    			<td>${r.inventoryId}</td>
+    			<td>${r.rentalDate}</td>
+    			<td>${r.returnDate}</td>
+    			<td>${r.staffId}</td>
+    			<td>
+    				<c:if test="${r.returnDate == null}">
+    					<a href="">반납</a>
+    				</c:if>
+    			</td>
+    		</tr>
+    	</c:forEach>
+    </table>
 </div>
 </body>
 </html>

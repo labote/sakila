@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.CustomerMapper;
 import com.gd.sakila.vo.Customer;
+import com.gd.sakila.vo.CustomerList;
 import com.gd.sakila.vo.PageParam;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +33,13 @@ public class CustomerService {
 		log.debug("modifyCustomerActiveByScheduler 실행 여부 : " + row);
 	}
 	
+	// 고객 추가
+	public int addCustomer(Customer customer) {
+		return customerMapper.insertCustomer(customer);
+	}
+	
 	// 고객 상세정보
-	public Map<String, Object> getCustomerOne(int customerId){
+	public CustomerList getCustomerOne(int customerId){
 		return customerMapper.selectCustomerOne(customerId);
 	}
 	

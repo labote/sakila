@@ -98,7 +98,7 @@
 					<tr>
 						<td>${c.customerId}</td>
 						<td>${c.storeId}</td>
-						<td><a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${c.customerId}&currentPage=${currentPage}&name=${name}&active=${active}&storeId=${storeId}">${c.name}</a></td>
+						<td><a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${c.customerId}&currentPage=${currentPage}&name=${name}&active=${active}&storeId=${storeId}&sum=${c.sum}">${c.name}</a></td>
 						<td>${c.email}</td>
 						<td>
 							<c:if test="${c.active == 0}">inactive</c:if>

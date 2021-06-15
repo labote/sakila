@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.CustomerService;
+import com.gd.sakila.service.RentalService;
+import com.gd.sakila.vo.Customer;
+import com.gd.sakila.vo.CustomerList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,18 +24,58 @@ public class CustomerController {
 	
 	// nullpointException이 발생 -> Autowired 에노테이션을 통해 객체를 주입 시켜준다
 	@Autowired private CustomerService customerService;
+	@Autowired private RentalService rentalService;
+	
+	// addCustomer 맵핑
+	@GetMapping("addCustomer")
+	public String addCustomer() {
+		return "addCustomer";
+	}
+	
+	@PostMapping("addCustomer")
+	public String addCustomer(Customer customer) {
+		
+		// 디버깅
+		log.debug("addCustomer method Param(customer) : " + customer.toString());
+		
+		customerService.addCustomer(customer);
+		
+		return "redirect:/admin/getCutsomerList";
+	}
 	
 	// getCustomerOne 맵핑
 	@GetMapping("/getCustomerOne")
-	public String getCustomerOne(Model model, @RequestParam(value="customerId", required = true) int customerId) {
+	public String getCustomerOne(Model model, @RequestParam(value="customerId", required = true) int customerId,
+			@RequestParam(value="sum", required = true) int sum,
+			@RequestParam(value="name", required = false) String name,
+			@RequestParam(value="active", required = false) Integer active,
+			@RequestParam(value="storeId", required = false) Integer storeId,
+			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage,
+			@RequestParam(value="searchWord", required = false) String searchWord) {
+		
 		// 디버깅
 		log.debug("getCustomerOne method Param(customerId) : " + customerId);
-		
+		log.debug("getCustomerOne method Param(sum) : " + sum);
+		log.debug("getCustomerOne method Param(name) : " + name);
+		log.debug("getCustomerOne method Param(active) : " + active);
+		log.debug("getCustomerOne method Param(storeId) : " + storeId);
+		log.debug("getCustomerOne method Param(currentPage) : " + currentPage);
+		log.debug("getCustomerOne method Param(rowPerPage) : " + rowPerPage);
+		log.debug("getCustomerOne method Param(searchWord) : " + searchWord);
+				
 		// Service 호출
-		Map<String, Object> returnMap = customerService.getCustomerOne(customerId);
+		CustomerList customerList= customerService.getCustomerOne(customerId);
+		Map<String, Object> rentalListMap = rentalService.seleListRentalList(currentPage, rowPerPage, searchWord, customerId);
 		
 		// model
-		model.addAttribute("getCustomerOne", returnMap);
+		model.addAttribute("getCustomerOne", customerList);
+		model.addAttribute("sum", sum);
+		model.addAttribute("name", name);
+		model.addAttribute("active", active);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", rentalListMap.get("lastPage"));
+		model.addAttribute("rentalList", rentalListMap.get("rentalList"));
 		
 		return "getCustomerOne";
 	}
