@@ -11,4 +11,5 @@ import com.gd.sakila.vo.Rental;
 public interface RentalMapper {
 	List<Rental> selectRentalList(Map<String, Object> map);
 	int selectRentalTotal(Map<String, Object> map);
+	int updateRental(int inventoryId);
 }

@@ -19,4 +19,5 @@ public interface FilmMapper {
 	int insertActorListByFilm(int actorId, int filmId);
 	int insertFilm(Film film);
 	int insertFilmCategory(Map<String, Object> map);
+	List<String> selectFilmListByCategory(String categoryName);
 }

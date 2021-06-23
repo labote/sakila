@@ -44,6 +44,11 @@ public class FilmService {
 		return film.getFilmId();
 	}
 	
+	// getFilmListByCategory
+	public List<String> getFilmListByCategory(String categoryName){
+		return filmMapper.selectFilmListByCategory(categoryName);
+	}
+	
 	// Delete + Insert
 	public void modifyFilmActor(int[] actorId, int filmId) {
 		

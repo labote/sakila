@@ -21,7 +21,13 @@ public class RentalService {
 	
 	@Autowired RentalMapper rentalMapper;
 	
-	public Map<String, Object> seleListRentalList(int currentPage, int rowPerPage, String searchWord, int customerId){
+	// update
+	public int modifyRental(int inventoryId) {
+		return rentalMapper.updateRental(inventoryId);
+	}
+	
+	// RentalList
+	public Map<String, Object> selectListRentalList(int currentPage, int rowPerPage, String searchWord, int customerId){
 		
 		// pageParam 선언 및 초기화
 		int beginRow = (currentPage -1) * rowPerPage;

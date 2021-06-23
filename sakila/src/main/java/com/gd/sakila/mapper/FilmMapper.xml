@@ -144,4 +144,12 @@
 			LEFT JOIN actor ON film_actor.actor_id = actor.actor_id
 		WHERE f.film_id = #{val}
 	</select>
+	
+	<select id="selectFilmListByCategory" parameterType="String" resultType="java.util.List">
+		SELECT
+			title
+		FROM
+			film_list
+		WHERE category = #{categoryName}
+	</select>
 </mapper>

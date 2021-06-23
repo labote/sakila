@@ -29,4 +29,8 @@
 			AND customer_id = #{customerId}
 		</where>
 	</select>
+	
+	<update id="updateRental" parameterType="int">
+		UPDATE rental SET return_date = NOW() WHERE inventory_id = #{inventoryId}
+	</update>
 </mapper>

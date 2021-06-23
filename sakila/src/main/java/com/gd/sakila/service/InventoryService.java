@@ -42,7 +42,7 @@ public class InventoryService {
 	// InventoryOne
 	public List<Map<String, Object>> getInventoryOne(int filmId){
 		
-		return inventoryMapper.selectInvetoryOne(filmId);
+		return inventoryMapper.selectInventoryOne(filmId);
 	}
 	
 	// InventoryList

@@ -69,7 +69,7 @@
     		<td>rentalDate</td>
     		<td>returnDate</td>
     		<td>staffId</td>
-    		<td></td>
+    		<td>반납</td>
     	</tr>
     	<c:forEach var="r" items="${rentalList}">
     		<tr>
@@ -80,7 +80,10 @@
     			<td>${r.staffId}</td>
     			<td>
     				<c:if test="${r.returnDate == null}">
-    					<a href="">반납</a>
+    					<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyCustomer?inventoryId=${r.inventoryId}">반납</a>
+    				</c:if>
+    				<c:if test="${r.returnDate != null}">
+    					반납완료
     				</c:if>
     			</td>
     		</tr>

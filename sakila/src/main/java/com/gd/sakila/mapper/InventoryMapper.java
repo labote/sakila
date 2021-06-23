@@ -11,7 +11,7 @@ import com.gd.sakila.vo.PageParam;
 @Mapper
 public interface InventoryMapper {
 	List<Map<String, Object>> selectInventoryInfoList(PageParam pageParam);
-	List<Map<String, Object>> selectInvetoryOne(int fiflmId);
+	List<Map<String, Object>> selectInventoryOne(int fiflmId);
 	List<Integer> selectFilmInStock(Map<String, Object> map);
 	int selectInventoryTotal(String searchWord);
 	int insertInvetory(Inventory inventory);
