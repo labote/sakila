@@ -13,7 +13,9 @@ public interface InventoryMapper {
 	List<Map<String, Object>> selectInventoryInfoList(PageParam pageParam);
 	List<Map<String, Object>> selectInventoryOne(int fiflmId);
 	List<Integer> selectFilmInStock(Map<String, Object> map);
+	List<Map<String,Object>> selectInventoryByFilmId(int filmId);
 	int selectInventoryTotal(String searchWord);
 	int insertInvetory(Inventory inventory);
 	int deleteInventory(int inventoryId);
+	int selectStaffIdByInventory(int inventoryId);
 }

@@ -57,6 +57,25 @@
 		}
 	</select>
 	
+	<select id="selectStaffIdByInventory" parameterType="int" resultType="int">
+		SELECT 
+			s.manager_staff_id staffId
+		FROM inventory i JOIN store s on i.store_id = s.store_id
+		WHERE inventory_id = #{inventoryId} 
+	</select>
+	
+	<select id="selectInventoryByFilmId" parameterType="Integer" resultType="java.util.Map">
+		SELECT 
+			i.store_id storeId,
+			i.inventory_id inventoryId,
+			r.return_date returnDate,
+			r.rental_date rentalDate 
+		FROM inventory i JOIN (SELECT i.inventory_id inventoryId, MAX(r.rental_date) rental_date FROM inventory i LEFT JOIN rental r ON i.inventory_id = r.inventory_id GROUP BY i.inventory_id) t
+									ON i.inventory_id = t.inventoryId 
+						LEFT JOIN rental r ON r.rental_date = t.rental_date AND r.inventory_id = t.inventoryId
+		WHERE i.film_id = #{filmId} AND r.return_date IS NOT NULL;
+	</select>
+	
 	<delete id="deleteInventory" parameterType="int">
 		DELETE FROM inventory WHERE inventory_id = #{inventoryId}
 	</delete>

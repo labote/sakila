@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gd.sakila.mapper.InventoryMapper;
 import com.gd.sakila.mapper.RentalMapper;
 import com.gd.sakila.vo.PageParam;
 import com.gd.sakila.vo.Rental;
@@ -20,10 +21,24 @@ import lombok.extern.slf4j.Slf4j;
 public class RentalService {
 	
 	@Autowired RentalMapper rentalMapper;
-	
+	@Autowired InventoryMapper inventoryMapper;
 	// update
 	public int modifyRental(int inventoryId) {
 		return rentalMapper.updateRental(inventoryId);
+	}
+	
+	// addRental
+	public int addRental(int inventoryId, int customerId) {
+		
+		// dao 호출
+		int staffId = inventoryMapper.selectStaffIdByInventory(inventoryId);
+		
+		Map<String, Object> rentalMap = new HashMap<String, Object>();
+		rentalMap.put("inventoryId", inventoryId);
+		rentalMap.put("customerId", customerId);
+		rentalMap.put("staffId", staffId);
+		
+		return rentalMapper.insertRental(rentalMap);
 	}
 	
 	// RentalList

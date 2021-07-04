@@ -23,6 +23,11 @@ public class InventoryService {
 	@Autowired
 	private InventoryMapper inventoryMapper; // 객체 주입
 
+	// selectInventoryByFilmId
+	public List<Map<String,Object>> getInventoryByFilmId(int filmId){
+		return inventoryMapper.selectInventoryByFilmId(filmId);
+	}
+	
 	// INSERT
 	public int addInventory(int filmId, int storeId) {
 		
@@ -81,7 +86,8 @@ public class InventoryService {
 			paramMap.put("storeId", storeId);
 			paramMap.put("filmCount", filmCount);
 			List<Integer> selectFilmInStock = inventoryMapper.selectFilmInStock(paramMap);
-
+			
+			log.debug("selectFilmInStock : " + selectFilmInStock.toString());
 			filmInStock.add((Integer) paramMap.get("filmCount"));
 
 		}

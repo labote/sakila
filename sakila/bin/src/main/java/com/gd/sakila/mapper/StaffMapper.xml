@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.StaffMapper">
+	<select id="selectStaffLogin" parameterType="com.gd.sakila.vo.Staff" resultType="com.gd.sakila.vo.Staff">
+		SELECT staff_id staffId, email email, username username FROM staff WHERE email=#{email} AND password=PASSWORD(#{password})
+	</select>
+	
+	<select id="selectStaffAll" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.StaffList">
+		SELECT 
+			ID ID, 
+			NAME NAME, 
+			address address, 
+			'zip Code',
+			phone phone,
+			city city, 
+			country country, 
+			SID SID
+		FROM staff_list
+		<where>
+			<if test="searchWord != null"> NAME LIKE CONCAT('%',#{searchWord},'%') </if>
+		</where>
+	</select>
+	
+	<select id="selectStaffOne" parameterType="int" resultType="com.gd.sakila.vo.Staff">
+		SELECT 
+			staff_id staffId,
+			first_name firstName,
+			last_name lastName,
+			address_id addressId,
+			email email,
+			store_id storeId,
+			active active,
+			username username,
+			last_update lastUpdate
+		FROM staff
+		WHERE staff_id = #{ID}
+	</select>
+</mapper>

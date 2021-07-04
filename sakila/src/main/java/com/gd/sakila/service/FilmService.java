@@ -45,7 +45,7 @@ public class FilmService {
 	}
 	
 	// getFilmListByCategory
-	public List<String> getFilmListByCategory(String categoryName){
+	public List<Map<String,Object>> getFilmListByCategory(String categoryName){
 		return filmMapper.selectFilmListByCategory(categoryName);
 	}
 	

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.RentalMapper">
+	<select id="selectRentalList" parameterType="java.util.Map" resultType="com.gd.sakila.vo.Rental">
+		SELECT
+			r.rental_id rentalId,
+			r.rental_date rentalDate,
+			r.inventory_id inventoryId,
+			r.return_date returnDate,
+			r.staff_id staffId,
+			f.title
+		FROM
+			rental r LEFT JOIN inventory i ON r.inventory_id = i.inventory_id
+					 LEFT JOIN film f ON i.film_id = f.film_id
+		<where>
+			<!-- <if test="searchWord != null"> board_title LIKE CONCAT('%',#{searchWord},'%') </if> -->
+			AND customer_id = #{customerId}
+		</where>
+		ORDER BY rental_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectRentalTotal" parameterType="java.util.Map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM rental
+		<where>
+			<!-- <if test="searchWord != null"> board_title LIKE CONCAT('%',#{searchWord},'%') </if> -->
+			AND customer_id = #{customerId}
+		</where>
+	</select>
+	
+	<update id="updateRental" parameterType="int">
+		UPDATE rental SET return_date = NOW() WHERE inventory_id = #{inventoryId}
+	</update>
+</mapper>

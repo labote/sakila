@@ -145,11 +145,13 @@
 		WHERE f.film_id = #{val}
 	</select>
 	
-	<select id="selectFilmListByCategory" parameterType="String" resultType="java.util.List">
-		SELECT
-			title
-		FROM
-			film_list
-		WHERE category = #{categoryName}
+	<select id="selectFilmListByCategory" parameterType="String" resultType="java.util.Map">
+		SELECT 
+			f.title title, f.film_id filmId
+		FROM film f INNER JOIN film_category fc ON f.film_id = fc.film_id
+					LEFT JOIN category c ON fc.category_id = c.category_id
+		WHERE c.name = #{categoryName}
 	</select>
+	
+	
 </mapper>

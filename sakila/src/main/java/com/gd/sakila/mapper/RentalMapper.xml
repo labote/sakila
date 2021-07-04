@@ -8,7 +8,8 @@
 			r.inventory_id inventoryId,
 			r.return_date returnDate,
 			r.staff_id staffId,
-			f.title
+			f.title,
+			f.film_id filmId
 		FROM
 			rental r LEFT JOIN inventory i ON r.inventory_id = i.inventory_id
 					 LEFT JOIN film f ON i.film_id = f.film_id
@@ -29,6 +30,10 @@
 			AND customer_id = #{customerId}
 		</where>
 	</select>
+	
+	<insert id="insertRental" parameterType="java.util.Map">
+		INSERT INTO rental(rental_date, inventory_id, customer_id, staff_id, last_update) VALUES(NOW(),#{inventoryId},#{customerId},#{staffId},NOW())
+	</insert>
 	
 	<update id="updateRental" parameterType="int">
 		UPDATE rental SET return_date = NOW() WHERE inventory_id = #{inventoryId}
