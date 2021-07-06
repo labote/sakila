@@ -26,31 +26,6 @@ public class CustomerController {
 	@Autowired private CustomerService customerService;
 	@Autowired private RentalService rentalService;
 	
-	// modifyCustomer 맵핑
-	@GetMapping("modifyCustomer")
-	public String modifyCustomer(@RequestParam(value = "inventoryId", required = true) int inventoryId,
-						@RequestParam(value = "customerId", required = true) int customerId) {
-
-		// debug
-		System.out.println("modifyCustomer pram inventoryId : " + inventoryId);
-		System.out.println("modifyCustomer pram customerId : " + customerId);
-		
-		// Service 호출
-		int updateRental = rentalService.modifyRental(inventoryId);
-		System.out.println("updateRental : " + updateRental);
-		
-		
-		/*
-		 * // model model.addAttribute("getCustomerOne", customerList);
-		 * model.addAttribute("sum", sum); model.addAttribute("name", name);
-		 * model.addAttribute("active", active); model.addAttribute("currentPage",
-		 * currentPage); model.addAttribute("rentalCurrentPage", rentalCurrentPage);
-		 * model.addAttribute("lastPage", rentalListMap.get("lastPage"));
-		 * model.addAttribute("rentalList", rentalListMap.get("rentalList"));
-		 */
-		return "redirect:/admin/getCustomerOne?customerId="+customerId;
-	}
-	
 	// addCustomer 맵핑
 	@GetMapping("addCustomer")
 	public String addCustomer() {
@@ -77,7 +52,7 @@ public class CustomerController {
 			@RequestParam(value="storeId", required = false) Integer storeId,
 			@RequestParam(value="rentalCurrentPage", defaultValue = "1") int rentalCurrentPage,
 			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value="rentalRowPerPage", defaultValue = "5") int rentalRowPerPage,
+			@RequestParam(value="rentalRowPerPage", defaultValue = "10") int rentalRowPerPage,
 			@RequestParam(value="searchWord", required = false) String searchWord) {
 		
 		// 디버깅

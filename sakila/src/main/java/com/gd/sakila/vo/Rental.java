@@ -12,4 +12,5 @@ public class Rental {
 	private int staffId;
 	private String lastUpdate;
 	private String title;
+	private int fine;
 }

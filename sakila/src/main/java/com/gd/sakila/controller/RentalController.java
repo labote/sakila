@@ -2,6 +2,7 @@ package com.gd.sakila.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,32 @@ import lombok.extern.slf4j.Slf4j;
 public class RentalController {
 	
 	@Autowired private RentalService rentalService;
+	
+	// modifyRental 맵핑
+	@GetMapping("modifyRental")
+	public String modifyCustomer(@RequestParam(value = "inventoryId", required = true) int inventoryId,
+			@RequestParam(value = "customerId", required = true) int customerId,
+			@RequestParam(value = "sum", required = true) int sum,
+			@RequestParam(value="name", required = false) String name,
+			@RequestParam(value="storeId", required = false) String storeId,
+			@RequestParam(value="active", required = false) String active,
+			@RequestParam(value="currentPage", required = false) int currentPage) {
+
+		// debug
+		log.debug("modifyRental param inventoryid : " + inventoryId);
+		log.debug("modifyRental param customerId : " + customerId);
+		log.debug("modifyRental param sum : " + sum);
+		log.debug("modifyRental param name : " + name);
+		log.debug("modifyRental param storeId : " + storeId);
+		log.debug("modifyRental param active : " + active);
+		log.debug("modifyRental param currentPage : " + currentPage);
+		
+		// Service 호출
+		int updateRental = rentalService.modifyRental(inventoryId);
+		System.out.println("updateRental : " + updateRental);
+		
+		return "redirect:/admin/getCustomerOne?customerId="+customerId+"&sum="+sum+"&name="+name+"&storeId="+storeId+"&active="+active+"&currentPage="+currentPage;
+	}
 	
 	@PostMapping("/addRental")
 	public String addRental(@RequestParam(value="currentPage", required = false) int currentPage,

@@ -147,11 +147,16 @@
 	
 	<select id="selectFilmListByCategory" parameterType="String" resultType="java.util.Map">
 		SELECT 
-			f.title title, f.film_id filmId
+			f.title title, f.film_id filmId, f.rating rating
 		FROM film f INNER JOIN film_category fc ON f.film_id = fc.film_id
 					LEFT JOIN category c ON fc.category_id = c.category_id
 		WHERE c.name = #{categoryName}
 	</select>
 	
-	
+	<select id="selectFilmRating" parameterType="int" resultType="String">
+		SELECT
+			rating
+		FROM film
+		WHERE film_id = #{filmId}
+	</select>
 </mapper>

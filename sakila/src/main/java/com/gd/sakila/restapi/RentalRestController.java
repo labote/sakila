@@ -29,6 +29,11 @@ public class RentalRestController {
 		return categoryService.getCategoryList();
 	}
 	
+	@GetMapping("/filmRating")
+	public String filmRating(@RequestParam(value="filmId", required = true) int filmId) {
+		return filmService.getFilmRating(filmId);
+	}
+	
 	@GetMapping("/filmTitle")
 	public List<Map<String,Object>> filmTitle(@RequestParam(value="categoryName", required = true) String categoryName){
 		log.debug("ajax-> RentalController param(categoryName) : " + categoryName);

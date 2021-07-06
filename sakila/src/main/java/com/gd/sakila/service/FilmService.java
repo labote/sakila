@@ -44,6 +44,11 @@ public class FilmService {
 		return film.getFilmId();
 	}
 	
+	// Film Rating 찾기 위한 메서드
+	public String getFilmRating(int filmId) {
+		return filmMapper.selectFilmRating(filmId);
+	}
+	
 	// getFilmListByCategory
 	public List<Map<String,Object>> getFilmListByCategory(String categoryName){
 		return filmMapper.selectFilmListByCategory(categoryName);

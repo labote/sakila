@@ -50,8 +50,23 @@
 		});
 		
 		$('#film').change(function(){
+
 			if($('#film').val() != ''){
 				console.log("film not null");
+				
+				$.ajax({
+					type: 'get',
+					url: '/filmRating',
+					data: {
+						filmId : $('#film').val()
+					},
+					success:function(data){
+						if(data == 'NC-17'){
+							alert("성인 영화입니다");
+						}
+					}
+				});
+				
 				$.ajax({
 					type: 'get',
 					url: '/inventory',
@@ -162,6 +177,7 @@
     		<td>returnDate</td>
     		<td>staffId</td>
     		<td>반납</td>
+    		<td>연체료</td>
     	</tr>
     	<c:forEach var="r" items="${rentalList}">
     		<tr>
@@ -172,10 +188,18 @@
     			<td>${r.staffId}</td>
     			<td>
     				<c:if test="${r.returnDate == null}">
-    					<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyCustomer?inventoryId=${r.inventoryId}">반납</a>
+    					<a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyRental?inventoryId=${r.inventoryId}&customerId=${getCustomerOne.customerId}&sum=${sum}&currentPage=${currentPage}&name=${name}&active=${active}&storeId=${storeId}">반납</a>
     				</c:if>
     				<c:if test="${r.returnDate != null}">
     					반납완료
+    				</c:if>
+    			</td>
+    			<td>
+    				<c:if test="${r.returnDate != null}">
+    					0
+    				</c:if>
+    				<c:if test="${r.returnDate == null}">
+    					<span style="color:red">${r.fine}</span>
     				</c:if>
     			</td>
     		</tr>

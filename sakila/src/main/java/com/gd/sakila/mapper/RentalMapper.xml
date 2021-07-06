@@ -9,7 +9,8 @@
 			r.return_date returnDate,
 			r.staff_id staffId,
 			f.title,
-			f.film_id filmId
+			f.film_id filmId,
+			if(r.return_date IS NULL, if(DATEDIFF(NOW(), r.rental_date) > f.rental_duration, DATEDIFF(NOW(), r.rental_date) - f.rental_rate , 0), 0) fine
 		FROM
 			rental r LEFT JOIN inventory i ON r.inventory_id = i.inventory_id
 					 LEFT JOIN film f ON i.film_id = f.film_id
@@ -17,7 +18,7 @@
 			<!-- <if test="searchWord != null"> board_title LIKE CONCAT('%',#{searchWord},'%') </if> -->
 			AND customer_id = #{customerId}
 		</where>
-		ORDER BY rental_date DESC
+		ORDER BY r.return_date ASC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -32,7 +33,7 @@
 	</select>
 	
 	<insert id="insertRental" parameterType="java.util.Map">
-		INSERT INTO rental(rental_date, inventory_id, customer_id, staff_id, last_update) VALUES(NOW(),#{inventoryId},#{customerId},#{staffId},NOW())
+		INSERT INTO rental(rental_date, inventory_id, customer_id, staff_id, last_update) VALUES(rental_date,#{inventoryId},#{customerId},#{staffId},NOW())
 	</insert>
 	
 	<update id="updateRental" parameterType="int">
